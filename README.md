@@ -24,3 +24,19 @@ To benchmark, run:
 ```
 kubectl apply -f bench.yaml
 ```
+
+
+
+
+## Build of image
+
+Build image, login to Azure and tag/push image
+```
+export version=0.0.1
+podman build . -t aks-nvme-ssd-provisioner
+
+./build/podman-login.sh dhiacrdev
+
+podman tag localhost/aks-nvme-ssd-provisioner:latest dhiacrdev.azurecr.io/aks-nvme-ssd-provisioner:$version
+podman push dhiacrdev.azurecr.io/aks-nvme-ssd-provisioner:$version
+```
