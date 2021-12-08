@@ -81,12 +81,8 @@ spec:
             - mountPath: /pv-disks
               name: local-storage
               mountPropagation: "Bidirectional"
-      volumes:
-        - name: pv-disks
-          hostPath:
-            path: /pv-disks
       containers:
-        - image: "quay.io/external_storage/local-volume-provisioner:v2.3.3"
+        - image: "quay.io/external_storage/local-volume-provisioner:v2.4.0"
           name: provisioner
           securityContext:
             privileged: true
@@ -107,7 +103,7 @@ spec:
               fieldRef:
                 fieldPath: metadata.namespace
           - name: JOB_CONTAINER_IMAGE
-            value: "quay.io/external_storage/local-volume-provisioner:canary"
+            value: "quay.io/external_storage/local-volume-provisioner:v2.4.0"
           volumeMounts:
             - mountPath: /etc/provisioner/config
               name: provisioner-config
@@ -131,7 +127,7 @@ spec:
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
-  name: local-storage
+  name: nvme-local-storage
 provisioner: kubernetes.io/no-provisioner
 volumeBindingMode: WaitForFirstConsumer
 reclaimPolicy: Delete
